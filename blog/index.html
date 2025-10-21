@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Julian Wendt</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <meta name="description" content="Blog posts by Julian Wendt." />
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Blog</h1>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+    </header>
+
+    <main>
+      <div id="posts">Loading…</div>
+    </main>
+
+    <footer>© <span id="y"></span> Julian Wendt</footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    fetch('/blog/posts.json')
+      .then(r => r.json())
+      .then(list => {
+        // newest first by date
+        list.sort((a,b) => b.date.localeCompare(a.date));
+        const wrap = document.getElementById('posts');
+        wrap.innerHTML = '';
+        list.forEach(p => {
+          const el = document.createElement('article');
+          el.innerHTML = `
+            <h2 style="margin-bottom:4px;"><a href="${p.url}">${p.title}</a></h2>
+            <div class="meta">${p.date} · ${p.description || ''}</div>
+          `;
+          wrap.appendChild(el);
+        });
+      })
+      .catch(() => {
+        document.getElementById('posts').textContent = 'No posts yet.';
+      });
+  </script>
+</body>
+</html>

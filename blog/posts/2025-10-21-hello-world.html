@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hello, new blog — Julian Wendt</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <meta name="description" content="First post on my minimalist site." />
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Hello, new blog</h1>
+      <div class="meta">2025-10-21</div>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+      </nav>
+    </header>
+
+    <main>
+      <p>Welcome to the new, minimalist, black-on-white site. I’ll write about international security, sanctions, and data-driven IPE here.</p>
+    </main>
+
+    <footer>© <span id="y"></span> Julian Wendt</footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>

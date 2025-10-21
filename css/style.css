@@ -1,0 +1,35 @@
+/* css/style.css */
+:root {
+  --fg: #000;
+  --bg: #fff;
+  --muted: #555;
+  --maxw: 760px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+
+.wrapper { max-width: var(--maxw); margin: 0 auto; padding: 28px 16px 64px; }
+header, main, footer { margin: 0 0 32px; }
+
+h1, h2, h3 { line-height: 1.25; margin: 20px 0 8px; font-weight: 700; }
+p { margin: 12px 0; }
+
+a { color: inherit; text-decoration: underline; text-decoration-thickness: .08em; text-underline-offset: .18em; }
+a:hover { text-decoration: none; }
+
+nav { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px; }
+nav a { text-decoration: none; border-bottom: 1px solid var(--fg); padding-bottom: 2px; }
+nav a:hover { border-bottom-color: transparent; }
+
+ul { padding-left: 18px; margin-top: 6px; }
+
+.meta { color: var(--muted); font-size: 0.92rem; }
+.hr { border: 0; border-top: 1px solid #ccc; margin: 24px 0; }
+
+footer { font-size: 0.9rem; color: var(--muted); }
