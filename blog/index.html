@@ -24,28 +24,35 @@
     <footer>© <span id="y"></span> Julian Wendt</footer>
   </div>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
 
-    fetch('/blog/posts.json')
-      .then(r => r.json())
-      .then(list => {
-        // newest first by date
-        list.sort((a,b) => b.date.localeCompare(a.date));
-        const wrap = document.getElementById('posts');
-        wrap.innerHTML = '';
-        list.forEach(p => {
-          const el = document.createElement('article');
-          el.innerHTML = `
-            <h2 style="margin-bottom:4px;"><a href="${p.url}">${p.title}</a></h2>
-            <div class="meta">${p.date} · ${p.description || ''}</div>
-          `;
-          wrap.appendChild(el);
-        });
-      })
-      .catch(() => {
-        document.getElementById('posts').textContent = 'No posts yet.';
+  const wrap = document.getElementById('posts');
+  fetch('./posts.json')
+    .then(r => {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(list => {
+      if (!Array.isArray(list) || list.length === 0) {
+        wrap.textContent = 'No posts yet.';
+        return;
+      }
+      list.sort((a,b) => b.date.localeCompare(a.date));
+      wrap.innerHTML = '';
+      list.forEach(p => {
+        const el = document.createElement('article');
+        el.innerHTML = `
+          <h2 style="margin-bottom:4px;"><a href="${p.url}">${p.title}</a></h2>
+          <div class="meta">${p.date}</div>
+        `;
+        wrap.appendChild(el);
       });
-  </script>
+    })
+    .catch(err => {
+      wrap.textContent = 'Could not load posts.';
+      console.error('Blog posts load error:', err);
+    });
+</script>
 </body>
 </html>
